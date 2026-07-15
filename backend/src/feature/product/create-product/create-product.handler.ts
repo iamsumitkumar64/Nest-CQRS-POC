@@ -21,7 +21,13 @@ export default class CreateProductHandler implements ICommandHandler<CreateProdu
         }
 
         // create product
-        await this.repository.createProduct(body);
+        await this.repository.createProduct({
+            name: body.name,
+            description: body.description,
+            price: body.price,
+            image_url: body.image_url,
+            user_uuid: command.user_uuid,
+        });
         return;
     }
 }
