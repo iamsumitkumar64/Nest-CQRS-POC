@@ -17,22 +17,28 @@
   right: 0;
 }
 
-.headerButton {
+.button,
+.deleteButton {
   width: fit-content;
-  padding: 0.85rem;
-  background: #1e4787;
-  color: #ffffff;
+  padding: .8rem;
+  color: #004ac2;
   border-radius: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: none;
   transition: all 0.25s ease;
-  box-shadow: 0 6px 18px rgba(119, 90, 25, 0.18);
+  border: 1px solid rgba(119, 90, 25, 0.18);
 }
 
-.button:hover {
-  background: #0f336c;
-  box-shadow: 0 10px 24px rgba(119, 90, 25, 0.28);
+.deleteButton {
+  width: 100%;
+  color: #bb0300;
+}
+
+.button:hover,
+.deleteButton:hover {
+  background: #ffffff;
+  box-shadow: 0 0 10px 4px rgb(237, 237, 237);
   transform: translateY(-1px);
 }
 

@@ -14,16 +14,12 @@ export default class DeleteProductHandler implements ICommandHandler<DeleteProdu
         const user_uuid = command.user_uuid;
 
         // check product existance
-        const isProductExists = await this.repository.findOneByClause({
-            uuid: product_uuid
+        const isProductExists = await this.repository.findOneByWhereClause({
+            uuid: product_uuid,
+            user_uuid: user_uuid
         });
         if (!isProductExists) {
             throw new BadRequestException("Product Not Found");
-        }
-
-        // Check if the user is the owner
-        if (isProductExists.user_uuid !== user_uuid) {
-            throw new ForbiddenException("You are not authorized to delete this product");
         }
 
         // delete product

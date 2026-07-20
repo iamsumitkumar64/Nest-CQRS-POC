@@ -3,8 +3,8 @@ export interface ProductType {
     name: string,
     description: string,
     price: number,
-    image_url?: string,
-    user_uuid?: string,
+    image_url: string,
+    user_uuid: string,
     created_at: string,
     updated_at: string,
     deleted_at: null

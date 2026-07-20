@@ -25,6 +25,7 @@ export class ProductMigration20260715120239 implements MigrationInterface {
         await queryRunner.createForeignKey(
             "product",
             new TableForeignKey({
+                name: "FK_PRODUCT_USER",
                 columnNames: ["user_uuid"],
                 referencedColumnNames: ["uuid"],
                 referencedTableName: "user",
@@ -35,5 +36,6 @@ export class ProductMigration20260715120239 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable("product", true);
+        await queryRunner.dropForeignKey("product", "FK_PRODUCT_USER");
     }
 }

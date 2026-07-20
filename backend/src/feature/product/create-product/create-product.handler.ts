@@ -10,10 +10,10 @@ export default class CreateProductHandler implements ICommandHandler<CreateProdu
     ) { }
 
     async execute(command: CreateProductCommand): Promise<unknown> {
-        const body = command.body;
+        const { body, user_uuid } = command;
 
         // check same name product
-        const isProductExists = await this.repository.findOneByClause({
+        const isProductExists = await this.repository.findOneByWhereClause({
             name: body.name
         });
         if (isProductExists) {
@@ -26,7 +26,7 @@ export default class CreateProductHandler implements ICommandHandler<CreateProdu
             description: body.description,
             price: body.price,
             image_url: body.image_url,
-            user_uuid: command.user_uuid,
+            user_uuid: user_uuid,
         });
         return;
     }

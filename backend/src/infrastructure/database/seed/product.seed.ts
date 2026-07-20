@@ -3,6 +3,7 @@ import { dataSource, options } from '../data-source';
 import { ProductEntity } from 'src/domain/product/product.entity';
 import { UserEntity } from 'src/domain/user/user.entity';
 import * as bcrypt from 'bcrypt';
+import { BcryptService } from 'src/infrastructure/service/bcrypt.service';
 
 // hardcoded users for all microservices
 const users = [
@@ -27,12 +28,15 @@ async function create() {
 
     await dataSource.initialize();
 
+    const bcryptService = new BcryptService();
+    const hashedPassword = await bcryptService.hashPassword("123");
+
     const queryRunner = dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
     try {
-        const passwordHash = await bcrypt.hash('password123', 12);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
         // use same users across all services
         for (const user of users) {
@@ -40,7 +44,7 @@ async function create() {
                 uuid: user.uuid,
                 email: user.email,
                 username: user.username,
-                password: passwordHash,
+                password: hashedPassword,
                 created_at: user.created_at,
             });
         }

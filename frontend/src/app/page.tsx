@@ -13,6 +13,7 @@ import { enqueueSnackbar } from "notistack";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ProductFormModalComp from "@/component/product-form/product-form-comp";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import Image from "next/image";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -58,7 +59,7 @@ export default function Home() {
         <Box className={styles.headerButtonBox}>
           {user && (
             <Button
-              className={styles.headerButton}
+              className={styles.button}
               startIcon={<AddOutlinedIcon />}
               onClick={() => handleProductModalToggle(true)}
             >
@@ -86,13 +87,7 @@ export default function Home() {
                   key={idx}
                   className={styles.card}
                 >
-                  {product.image_url && (
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className={styles.productImage}
-                    />
-                  )}
+                  <Image src={product.image_url} alt={product.name} className={styles.productImage} width={100} height={100} />
                   <Typography variant="h6" className={styles.productTitle}>{product.name}</Typography>
                   <Typography variant="body2" className={styles.productDescription}>{product.description}</Typography>
                   <Typography variant="subtitle1" className={styles.productPrice}>${product.price}</Typography>
@@ -100,7 +95,7 @@ export default function Home() {
                   {user && product.user_uuid === user.uid && (
                     <Button
                       startIcon={<DeleteOutlinedIcon />}
-                      className={styles.footerButton}
+                      className={styles.deleteButton}
                       onClick={async () => await handleProductDelete(product.uuid)}
                     >
                       Delete
